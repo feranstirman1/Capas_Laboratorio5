@@ -2,16 +2,21 @@ package com.uca.capas.tareaLabo5;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import javax.transaction.TransactionManager;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@EnableTransactionManagement
 public class JPAConfiguration {
 
 	
@@ -38,6 +43,13 @@ public class JPAConfiguration {
 		return dataSource;
 	}
 	
+	@Bean
+	JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager transactionManger = new JpaTransactionManager();
+		transactionManger.setEntityManagerFactory(entityManagerFactory);
+		return transactionManger;
+		
+	}
 	
 	Properties hibernateProperties() {
 		Properties properties = new Properties();

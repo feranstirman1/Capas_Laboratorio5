@@ -10,16 +10,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.tareaLabo5.dao.EstudianteDAO;
 import com.uca.capas.tareaLabo5.domain.Estudiante;
+import com.uca.capas.tareaLabo5.service.EstudianteService;
 
 @Controller
 public class MainController {
 
 	@Autowired
-	EstudianteDAO estudianteDAO;
+	EstudianteService estudianteService;
 
 	@RequestMapping("/inicio")
 	public ModelAndView inicio() {
@@ -34,7 +36,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		List<Estudiante> estudiantes = null;
 		try {
-			estudiantes = estudianteDAO.findAll();
+			estudiantes = estudianteService.findAll();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -51,11 +53,31 @@ public class MainController {
 			mav.setViewName("index");
 			return mav;
 		}else {
-			estudianteDAO.insert(estudiante);
+			estudianteService.insert(estudiante);
 			mav.addObject("estudiante",new Estudiante());
 			mav.setViewName("index");
 			return mav;
 		}
+	}
+	
+	@RequestMapping("/borrarEstudiante")
+	public ModelAndView borrar(@RequestParam(value="codigo") Integer codigo) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			estudianteService.borrar(codigo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<Estudiante> estudiantes = null;
+		try {
+			estudiantes = estudianteService.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		mav.addObject("estudiantes", estudiantes);
+		mav.setViewName("listado");
+		return mav;
 	}
 
 }
