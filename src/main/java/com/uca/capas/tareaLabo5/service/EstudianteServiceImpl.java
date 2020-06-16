@@ -10,36 +10,38 @@ import org.springframework.stereotype.Repository;
 
 import com.uca.capas.tareaLabo5.dao.EstudianteDAO;
 import com.uca.capas.tareaLabo5.domain.Estudiante;
+import com.uca.capas.tareaLabo5.repositories.EstudianteRepo;
 
 @Repository
 public class EstudianteServiceImpl implements EstudianteService {
 
 	@Autowired
-	EstudianteDAO estudianteDAO;
+	EstudianteRepo estudianteRepo;
+	//EstudianteDAO estudianteDAO;
 	
 	@Override
 	public List<Estudiante> findAll() throws DataAccessException {
 		// TODO Auto-generated method stub
-		return estudianteDAO.findAll();
+		return estudianteRepo.findAll();
 	}
 
 	@Override
 	@Transactional
-	public void insert(Estudiante estudiante) throws DataAccessException {
-		estudianteDAO.insert(estudiante);
+	public void save(Estudiante estudiante) throws DataAccessException {
+		estudianteRepo.save(estudiante);
 		
 	}
 
 	@Override
 	@Transactional
 	public void borrar(Integer codigo) throws DataAccessException {
-		estudianteDAO.borrar(codigo);
+		estudianteRepo.deleteById(codigo);
 		
 	}
 
 	@Override
 	public Estudiante findOne(Integer codigo) throws DataAccessException {
-		return estudianteDAO.findOne(codigo);
+		return estudianteRepo.getOne(codigo);
 	}
 
 }

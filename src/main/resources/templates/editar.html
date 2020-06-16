@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<htmlxmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Editar Estudiante</title>
+</head>
+	<body>
+
+		<form th:action="@{/actualizarEstudiante}" th:object="${estudiante}" method="POST">
+				
+			<input type="hidden" th:field="*{cUsuario}">
+				
+			<label for="nombre">Nombre:</label> <input class="form-control"
+				type="text" th:field="*{nombre}" /> <span th:errors="*{nombre}"></span><br />
+
+			<label for="apellido">Apellido:</label> <input class="form-control"
+				type="text" th:field="*{apellido}" /> <span th:errors="*{apellido}"></span><br />
+
+			<label for="nombre">Carnet:</label> <input class="form-control"
+				type="text" th:field="*{carnet}" /> <span th:errors="*{carnet}"></span><br />
+
+			<label for="nombre">Carrera:</label> <input class="form-control"
+				type="text" th:field="*{carrera}" /> <span th:errors="*{carrera}"></span><br />
+
+			<button class="btn btn-primary btn-block" type="submit">
+				Actualizar Estudiante</button>
+		</form>
+
+	</body>
+	</html>

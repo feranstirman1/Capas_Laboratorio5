@@ -54,6 +54,13 @@
           </form>
           <a class="btn btn-block" href="/listado">Ver Estudiantes</a>
           
+          <h2>Editar un Estudiante</h2>
+          <form th:action="@{/editarEstudiante}" method="post">
+          		<label>Ingresar codigo de estudiante a editar: </label>
+          		<input class="form-control" type="number" name="codigo" />
+          		<button class="btn btn-success" type="submit">Editar</button>
+          </form>
+          
           <h2>Borrar un Estudiante</h2>
           <form th:action="@{/borrarEstudiante}" method="post">
           		<label>Ingresar codigo de estudiante a borrar: </label>

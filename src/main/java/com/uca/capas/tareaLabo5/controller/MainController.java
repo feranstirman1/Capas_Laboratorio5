@@ -53,11 +53,59 @@ public class MainController {
 			mav.setViewName("index");
 			return mav;
 		}else {
-			estudianteService.insert(estudiante);
+			estudianteService.save(estudiante);
 			mav.addObject("estudiante",new Estudiante());
 			mav.setViewName("index");
 			return mav;
 		}
+	}
+	
+	@RequestMapping("/actualizarEstudiante")
+	public ModelAndView actualizar(@Valid @ModelAttribute Estudiante estudiante,BindingResult result) {
+		
+		ModelAndView mav = new ModelAndView();
+		//estudiante.setcUsuario(codigo);
+		if(estudiante.getcUsuario() == null) {
+			mav.setViewName("index");
+			mav.addObject("estudiante",new Estudiante());
+			return mav;
+		}else {
+			try {
+				estudianteService.save(estudiante);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			List<Estudiante> estudiantes = estudianteService.findAll();
+			mav.addObject("estudiantes", estudiantes);
+			mav.setViewName("listado");
+			return mav;
+		}	
+	}
+	
+	@RequestMapping("/editarEstudiante")
+	public ModelAndView editar(@RequestParam(value="codigo") Integer codigo) {
+		
+		ModelAndView mav = new ModelAndView();
+		Estudiante estudiante;
+		try {
+			estudiante = estudianteService.findOne(codigo);
+			if(estudiante == null) {
+				mav.addObject("estudiante", new Estudiante());
+				mav.setViewName("index");
+				return mav;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			mav.setViewName("index");
+			return mav;
+		}
+		
+		mav.addObject("estudiante", estudiante);
+		mav.setViewName("editar");
+		return mav;
+		
 	}
 	
 	@RequestMapping("/borrarEstudiante")

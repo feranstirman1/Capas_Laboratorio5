@@ -10,6 +10,6 @@ public interface EstudianteService {
 
 	public List<Estudiante> findAll() throws DataAccessException;
 	public Estudiante findOne(Integer codigo) throws DataAccessException;
-	public void insert(Estudiante estudiante) throws DataAccessException;
+	public void save(Estudiante estudiante) throws DataAccessException;
 	public void borrar(Integer codigo) throws DataAccessException;
 }
